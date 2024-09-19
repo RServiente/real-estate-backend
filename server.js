@@ -29,10 +29,16 @@ app.use(express.static("Public"));
 
 app.get("/profile", (req, res) => {
   const token = req.cookies.token;
-  if (!token) return res.status(401).json({ Status: "Error", Error: "Not authenticated" });
+   //console.log('Received Token:', token); Log token for debugging
 
+  if 
+  (!token) {
+    return res.status(401).json({ Status: "Error", Error: "Not authenticated" });
+  }
   Jwt.verify(token, "jwt_secret_key", (err, decoded) => {
-    if (err) return res.status(403).json({ Status: "Error", Error: "Invalid token" });
+    if (err){
+      return res.status(403).json({ Status: "Error", Error: "Invalid token" });
+    } 
 
     return res.json({ Status: "Success" , id: decoded.id, role: decoded.role, userID: decoded.userID });
   });

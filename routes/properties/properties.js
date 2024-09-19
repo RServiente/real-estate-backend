@@ -47,7 +47,7 @@ router.get("/forsale", (req, res) => {
 
 // Fetch all properties for a user
 router.get("/user/:userID", verifyToken, (req, res) => {
-  const userID = req.params;
+  const userID = req.params.userID;
   const query = 'SELECT * FROM properties WHERE userID = ?';
   db.query(query, [userID], (err, results) => {
     if (err) return res.json({ Status: 'Error', Error: err.message });
